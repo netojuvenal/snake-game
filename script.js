@@ -17,6 +17,11 @@ let intervaloJogo;
 let delayIntervaloJogo = 200;
 let jogoIniciado = false;
 
+// DEFINIR EFEITOS SONOROS
+
+const sfxPonto = new Audio('./sounds/snake-game-point.wav');
+const sfxDano = new Audio('./sounds/snake-game-hit.wav');
+
 // DESENHAR ELEMENTOS NO TABULEIRO (MAPA, COBRINHA, COMIDA)
 
 function desenharElementos() {
@@ -95,6 +100,8 @@ function mover() {
     // cobrinha.pop();
 
     if (cabeca.x === comida.x && cabeca.y === comida.y) {
+        sfxPonto.currentTime = 0;
+        sfxPonto.play();
         comida = gerarComida();
         aumentarVelocidade();
         clearInterval(intervaloJogo);
@@ -173,6 +180,8 @@ function iniciarJogo() {
 // FUNÇÃO PARA RESETAR O JOGO
 
 function resetarJogo() {
+    sfxDano.currentTime = 0;
+    sfxDano.play();
     atualizarRecorde();
     jogoIniciado = false;
     pararJogo();
